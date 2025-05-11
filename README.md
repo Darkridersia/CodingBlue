@@ -21,6 +21,12 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
+## Notes
+Auto Rendering in Web
+To enable the auto-rendering in the web, you will have to use the proxy server of "http://localhost:3000" instead of "http://127.0.0.1:8000"
+
+The setting for this can be found in the webpack.mix.js
+
 ## Learning Laravel
 
 Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.

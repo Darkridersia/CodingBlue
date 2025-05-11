@@ -14,4 +14,13 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         //
-    ]);
+    ])
+    // To enable auto render in the browser
+    .browserSync({
+       proxy: 'http://127.0.0.1:8000', // Your Laravel app URL
+       files: [
+           'resources/views/**/*.blade.php', // Watch Blade files
+           'public/js/**/*.js',             // Watch compiled JS
+           'public/css/**/*.css',           // Watch compiled CSS
+       ],
+   });
