@@ -1,35 +1,27 @@
-<x-header data="User"/>
+<x-header data="User" />a
 
 <h1>This is the User Page</h1>
 
 <hr style="height: 5px; background-color: black;">
 
-@if($user == "YL Loo")
-    <h2>Hello {{ $user }}</h2>
-@elseif($user == "Peter")
-    <h2>Hi {{ $user }}</h2>
-@elseif($user == "Nigel")
-    <h2>Bonjour, {{ $user }}</h2>
-@else
-    <h2>Unknown User</h2>
-@endif
-
 <hr style="height: 5px; background-color: black;">
 
+{{-- it will able to get the data from teh userInner view bcs the @include function will inherit all the var that is passed to the parent view which is the "users.blade.php" view --}}
 @include('userInner')
 
 <hr style="height: 5px; background-color: black;">
 
 @foreach($users as $user)
-    <h1>{{ $user }}</h1>
-@endforeach
+    <h3>ID: {{ $user->id }}</h3>
+    <h3>Name: {{ $user->name }}</h3>
+    <h3>Email: {{ $user->email }}</h3>
+<hr>@endforeach
 
 <script>
-    var data=@json($users);
-    
+    var data = @json($users);
+
     console.log(data);
 </script>
 
 <!-- U need the below code to show the JSciprt data in the console -->
 @csrf
-

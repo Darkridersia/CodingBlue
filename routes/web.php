@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Users;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,19 @@ Route::get('/aboutus', function(){
     // return redirect('contactus');
 });
 
-Route::get('users/{users}', [Users::class, 'index']);
+Route::get('users/users/{users}', [Users::class, 'index']);
+Route::get('users/users/{users}', [Users::class, 'loadView']);
 
-Route::get('users/{users}', [Users::class, 'loadView']);
+Route::get('users/usercontroller', [UserController::class, 'index']);
+Route::get('users/usercontroller', [UserController::class, 'testData']);
+// Route::get('users/usercontroller/loadview', [UserController::class, 'loadView']);
+
+// CRUD Operations
+Route::get('/addUser', function(){
+    return view('addUser');
+});
+Route::post('/addUser', [UserController::class, 'addUser']);
+Route::post('/users/usercontroller/{id}', [UserController::class, 'deleteUser']);
+Route::get('/updateUser/{id}',[UserController::class, 'showUpdate']);
+Route::post('/updateUser/{id}',[UserController::class, 'updateUser']);
+

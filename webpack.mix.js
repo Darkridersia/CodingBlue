@@ -15,7 +15,7 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         //
     ])
-    // To enable auto render in the browser
+    // To enable auto-rendering in the web
     .browserSync({
        proxy: 'http://127.0.0.1:8000', // Your Laravel app URL
        files: [

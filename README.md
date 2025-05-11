@@ -22,10 +22,23 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
 ## Notes
+
 Auto Rendering in Web
 To enable the auto-rendering in the web, you will have to use the proxy server of "http://localhost:3000" instead of "http://127.0.0.1:8000"
 
 The setting for this can be found in the webpack.mix.js
+
+Rmb to use laravel comment format as it will sometimes cause error. But it seems it will only happen in the view file:
+{{--  --}}
+
+## Fixes
+If you are using WampServer and the icon is showing orange, it means the web server is not working. Steps for fixing this:
+
+Step 1:
+Open task manager and locate apache http server and mysqld. End-task for these 2.
+
+Step 2:
+Restart the WampServer
 
 ## Learning Laravel
 
