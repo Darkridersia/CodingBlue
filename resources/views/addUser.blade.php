@@ -1,4 +1,4 @@
-<x-header data="Add User Header Component"/>
+<x-header data="Add User Header Component" />
 
 <form action="/addUser" method="POST">
     @csrf
@@ -18,5 +18,19 @@
 
     <br>
 
+    <div>
+        <label for="password">Password:</label>
+        <br>
+        <input type="text" id="password" name="password" placeholder="Enter ur password">
+    </div>
+
+    <br>
+
     <button type="submit">Add User</button>
 </form>
+
+@if(session('message'))
+<div class="alert alert-success" style="color: green; font-weight: bold;">
+    {{ session('message') }}
+</div>
+@endIf

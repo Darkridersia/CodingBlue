@@ -1,4 +1,4 @@
-<x-header data="User" />a
+<x-header data="User" />
 
 <h1>This is the User Page</h1>
 
@@ -8,6 +8,12 @@
 
 {{-- it will able to get the data from teh userInner view bcs the @include function will inherit all the var that is passed to the parent view which is the "users.blade.php" view --}}
 @include('userInner')
+
+@if(session('message'))
+    <div class="alert alert-success">
+        {{ session('message') }}
+    </div>
+@endif
 
 <hr style="height: 5px; background-color: black;">
 

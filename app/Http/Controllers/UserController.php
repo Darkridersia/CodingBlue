@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\UserP5;
 
 class UserController extends Controller
 {
@@ -49,7 +50,7 @@ class UserController extends Controller
         $data->email = $req->email;
         $data->save();
 
-        return redirect('users/usercontroller');
+        return redirect('users/usercontroller')->with('message', 'User Updated Successfully');
     }
 
     // public function loadView(){
@@ -58,4 +59,21 @@ class UserController extends Controller
 
     //     return view('users', ['users' => $users]);
     // }
+
+    function signUp(Request $req){
+        $data = $req->all();
+        $data['is_admin'] = 0;
+        
+        UserP5::create($data);
+
+        return redirect('addUser')->with('message', 'User Created Successfully');
+    }
+
+    function OneToOne(){
+        return UserP5::find(2)->getOneCompany;
+    }
+
+    function OneToMany(){
+        return UserP5::find(2)->getManyCompany;
+    }
 }

@@ -39,8 +39,11 @@ Route::get('users/usercontroller', [UserController::class, 'testData']);
 Route::get('/addUser', function(){
     return view('addUser');
 });
-Route::post('/addUser', [UserController::class, 'addUser']);
+// Route::post('/addUser', [UserController::class, 'addUser']);
 Route::post('/users/usercontroller/{id}', [UserController::class, 'deleteUser']);
 Route::get('/updateUser/{id}',[UserController::class, 'showUpdate']);
 Route::post('/updateUser/{id}',[UserController::class, 'updateUser']);
 
+Route::post('/addUser', [UserController::class, 'signUp']);
+Route::get('/hasOne',[UserController::class, "OneToOne"]);
+Route::get('/hasMany',[UserController::class, 'OneToMany']);
