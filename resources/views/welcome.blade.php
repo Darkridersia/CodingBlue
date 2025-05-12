@@ -405,7 +405,9 @@
 </head>
 
 <body class="antialiased">
-    <h1>Hi, {{$username}}</h1>
+    {{-- <h1>Hi, {{$username}}</h1> --}}
+
+    <h1>Hi, {{ session('user') }}</h1>
 
     <a href="/contactus">Contact Us &nbsp; &nbsp; </a>
     <a href="/aboutus">About Us</a>

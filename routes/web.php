@@ -16,6 +16,11 @@ use App\Http\Middleware\ageCheck;
 |
 */
 
+// The below is the default route for the welcome screen but there is others welcome screen that is using diff url name but I put this one as the default for easier navigation
+Route::get('/welcome',function(){
+    return view('welcome');
+});
+
 Route::get('/home/{username}', function ($username) {
     return view('welcome', ['username' => $username]);
 });
@@ -50,7 +55,7 @@ Route::post('/addUser', [UserController::class, 'signUp']);
 Route::get('/hasOne',[UserController::class, "OneToOne"]);
 Route::get('/hasMany',[UserController::class, 'OneToMany']);
 
-// Validation
+// Validation and a bit of session mixed in
 Route::get('/login',function(){
     return view('login');
 });
@@ -70,3 +75,19 @@ Route::group(['middleware' => ['protectedPage']], function(){
 });
 
 Route::view('login', 'login')->middleware('protectedPage');
+
+// Session
+Route::get('/login', function(){
+    if(session()->has('user')){
+        return redirect('welcome');
+    }
+    return view('login');
+});
+
+// U can direct use this url and it will direct log u out
+Route::get('/logout', function(){
+    if(session()->has('user')){
+        session()->pull('user');
+    }
+    return redirect('login');
+});

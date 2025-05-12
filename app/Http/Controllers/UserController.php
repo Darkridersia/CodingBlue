@@ -62,10 +62,21 @@ class UserController extends Controller
 
     function signUp(Request $req)
     {
+
+        $req->validate([
+            'name' => 'required | max: 30',
+            'email' => 'required | max: 30',
+            'password' => 'required | min: 5',
+            // there can't be spacing between the same and password as it will not cause error but the validation will not work
+            'confirm_password' => 'required | same:password',
+        ]);
+
         $data = $req->all();
         $data['is_admin'] = 0;
 
         UserP5::create($data);
+
+        $req->session()->flash('user', $data['name']);
 
         return redirect('addUser')->with('message', 'User Created Successfully');
     }
@@ -91,6 +102,8 @@ class UserController extends Controller
         $user = UserP5::where('email', $req->email)->first();
 
         if ($user && $req->password === $user->password) {
+            $req->session()->put('user', $user->name);
+
             return redirect('/login')->with('message', 'Login Successful');
         }
 

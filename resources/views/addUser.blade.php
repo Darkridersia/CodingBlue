@@ -1,5 +1,7 @@
 <x-header data="Add User Header Component" />
 
+<h1>Hi {{ session('user') }}</h1>
+
 <form action="/addUser" method="POST">
     @csrf
     <div>
@@ -21,7 +23,13 @@
     <div>
         <label for="password">Password:</label>
         <br>
-        <input type="text" id="password" name="password" placeholder="Enter ur password">
+        <input type="password" id="password" name="password" placeholder="Enter ur password">
+    </div>
+
+    <br>
+
+    <div>
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm ur password">
     </div>
 
     <br>
@@ -34,3 +42,13 @@
     {{ session('message') }}
 </div>
 @endIf
+
+@if ($errors->any())
+    <div style="color: red; font-weight: bold;">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
