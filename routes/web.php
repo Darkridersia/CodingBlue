@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Users;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\ageCheck;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,28 @@ Route::post('/users/usercontroller/{id}', [UserController::class, 'deleteUser'])
 Route::get('/updateUser/{id}',[UserController::class, 'showUpdate']);
 Route::post('/updateUser/{id}',[UserController::class, 'updateUser']);
 
+// One to One & One to Many Relationships
 Route::post('/addUser', [UserController::class, 'signUp']);
 Route::get('/hasOne',[UserController::class, "OneToOne"]);
 Route::get('/hasMany',[UserController::class, 'OneToMany']);
+
+// Validation
+Route::get('/login',function(){
+    return view('login');
+});
+Route::post('/login', [UserController::class, 'login']);
+
+// Middleware
+Route::get('/', function(){
+    return 'Welcome to the Homepage!';
+});
+Route::get('/noaccess', function(){
+    return 'U are not allowed to access this page';
+});
+
+Route::group(['middleware' => ['protectedPage']], function(){
+    Route::view("adduser", "adduser");
+    Route::view("contactus", "contactus");
+});
+
+Route::view('login', 'login')->middleware('protectedPage');

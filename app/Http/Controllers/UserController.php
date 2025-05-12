@@ -60,20 +60,43 @@ class UserController extends Controller
     //     return view('users', ['users' => $users]);
     // }
 
-    function signUp(Request $req){
+    function signUp(Request $req)
+    {
         $data = $req->all();
         $data['is_admin'] = 0;
-        
+
         UserP5::create($data);
 
         return redirect('addUser')->with('message', 'User Created Successfully');
     }
 
-    function OneToOne(){
+    function OneToOne()
+    {
         return UserP5::find(2)->getOneCompany;
     }
 
-    function OneToMany(){
+    function OneToMany()
+    {
         return UserP5::find(2)->getManyCompany;
+    }
+
+    // Validation
+    function login(Request $req)
+    {
+        $req->validate([
+            'email' => 'required | max: 30',
+            'password' => 'required | min: 5',
+        ]);
+
+        $user = UserP5::where('email', $req->email)->first();
+
+        if ($user && $req->password === $user->password) {
+            return redirect('/login')->with('message', 'Login Successful');
+        }
+
+        return back()->withErrors(['email' => 'Invalid email or password.']);
+
+        // input meth collecs * the submitted form data, including the CSRF token, and rtn it as associative array
+        // return $req->input();
     }
 }
