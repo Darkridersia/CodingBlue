@@ -5,7 +5,10 @@ use App\Http\Controllers\Users;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\ageCheck;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\PostController;
+use Illuminate\Support\Facades\Gate;
 
 /*
 |--------------------------------------------------------------------------
@@ -123,3 +126,19 @@ Route::group(['middleware' => 'auth:admin'], function () {
 });
 Route::get('logout', [LoginController::class, 'logout']);
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Using build-in auth register funct
+// Route::get('/posts/create', [PostController::class, 'create']);
+// Route::get('/posts/edit', [PostController::class, 'edit']);
+// Route::get('/posts/delete', [PostController::class, 'delete']);
+
+Route::post('/posts/store', [PostController::class, 'store'])->middleware('can:isAuthor')->name('posts.store');
+Route::get('/posts/showStore', [PostController::class, 'showStore'])->name('posts.showStore');
+Route::get('/posts/edit', [PostController::class, 'edit'])->middleware('can:isAuthor')->name('posts.edit');
+Route::get('/posts/delete', [PostController::class, 'delete'])->middleware('can:isAdmin')->name('posts.delete');
+Route::get('/posts/index', [PostController::class, 'index'])->middleware('can:isAdmin')->name('posts.index');
+Route::get('/posts/show', [PostController::class, 'show'])->middleware('can:isAdmin')->name('posts.show');
+
+
+
+
